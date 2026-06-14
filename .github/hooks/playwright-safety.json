@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/scripts/validate-playwright-cmd.js",
+        "timeout": 10
+      }
+    ]
+  }
+}

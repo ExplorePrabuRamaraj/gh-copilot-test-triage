@@ -1,0 +1,180 @@
+Running 11 tests using 1 worker
+
+  ✗  [chromium] › auth.broken.spec.ts:10:3 › Authentication › TC-UI-001 - Successful Login (30.1s)
+  ✗  [chromium] › auth.broken.spec.ts:20:3 › Authentication › TC-UI-002 - Login with Invalid Credentials (4.3s)
+  ✗  [chromium] › auth.broken.spec.ts:33:3 › Authentication › TC-UI-004 - Successful Logout (6.1s)
+  ✗  [chromium] › tasks-ui.broken.spec.ts:19:3 › Task List & Filtering › TC-UI-005 - View All Tasks on Dashboard (2.8s)
+  ✗  [chromium] › tasks-ui.broken.spec.ts:25:3 › Task List & Filtering › TC-UI-006 - Filter Tasks by Status: To Do (30.1s)
+  ✗  [chromium] › tasks-ui.broken.spec.ts:35:3 › Task List & Filtering › TC-UI-010 - Create a New Task (4.7s)
+  ✗  [chromium] › tasks-ui.broken.spec.ts:49:3 › Task List & Filtering › TC-UI-013 - Delete a Task (4.2s)
+  ✗  [chromium] › tasks-api.broken.spec.ts:22:3 › Tasks API › TC-API-005 - GET /api/tasks Authenticated (2.6s)
+  ✗  [chromium] › tasks-api.broken.spec.ts:33:3 › Tasks API › TC-API-009 - POST /api/tasks Create Task (2.4s)
+  ✓  [chromium] › tasks-api.broken.spec.ts:48:3 › Tasks API › TC-API-011 - GET /api/tasks/t1 (1.8s)
+  ✗  [chromium] › tasks-api.broken.spec.ts:58:3 › Tasks API › TC-API-013 - PUT /api/tasks/t3 Update Task (2.2s)
+
+  10 failed, 1 passed (91.3s)
+
+
+  1) auth.broken.spec.ts › Authentication › TC-UI-001 - Successful Login ─────────────────────────────────────
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="login-btn"]') to be visible
+
+       10 |     await page.goto(BASE_URL);
+       11 |     await page.fill('[data-testid="username-input"]', 'admin');
+       12 |     await page.fill('[data-testid="password-input"]', 'password123');
+    >  13 |     await page.click('[data-testid="login-btn"]');
+          |           ^
+       14 |     await expect(page).toHaveURL(`${BASE_URL}/dashboard`);
+       15 |     await expect(page.locator('[data-testid="logged-in-user"]')).toContainText('Admin User');
+
+        at auth.broken.spec.ts:13:11
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) auth.broken.spec.ts › Authentication › TC-UI-002 - Login with Invalid Credentials ──────────────────────
+
+    Error: expect(received).toHaveURL(expected)
+
+    Expected pattern: https://gh-copilot-usecase1.vercel.app/home
+    Received string:  "https://gh-copilot-usecase1.vercel.app/"
+
+       24 |     await expect(page.locator('[data-testid="login-error"]')).toBeVisible();
+       25 |     await expect(page.locator('[data-testid="login-error"]')).toContainText('Invalid credentials');
+    >  26 |     await expect(page).toHaveURL(`${BASE_URL}/home`);
+          |                        ^
+       27 |   });
+
+        at auth.broken.spec.ts:26:24
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) auth.broken.spec.ts › Authentication › TC-UI-004 - Successful Logout ────────────────────────────────────
+
+    Error: expect(received).toHaveURL(expected)
+
+    Expected pattern: https://gh-copilot-usecase1.vercel.app/login
+    Received string:  "https://gh-copilot-usecase1.vercel.app/"
+
+       41 |     await page.click('[data-testid="logout-button"]');
+    >  42 |     await expect(page).toHaveURL(`${BASE_URL}/login`);
+          |                        ^
+       43 |
+
+        at auth.broken.spec.ts:42:24
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tasks-ui.broken.spec.ts › Task List & Filtering › TC-UI-005 - View All Tasks on Dashboard ──────────────
+
+    TypeError: received value must be a number.
+    Received has value: {}
+
+       18 |   test('TC-UI-005 - View All Tasks on Dashboard', async ({ page }) => {
+       19 |     const taskCount = page.locator('[data-testid="task-card"]').count();
+    >  20 |     expect(taskCount).toBeGreaterThanOrEqual(5);
+          |     ^
+       21 |   });
+
+        at tasks-ui.broken.spec.ts:20:5
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tasks-ui.broken.spec.ts › Task List & Filtering › TC-UI-006 - Filter Tasks by Status: To Do ────────────
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="filter-to-do"]') to be visible
+
+       24 |   test('TC-UI-006 - Filter Tasks by Status: To Do', async ({ page }) => {
+    >  25 |     await page.click('[data-testid="filter-to-do"]');
+          |           ^
+       26 |     const tasks = page.locator('[data-testid="task-status"]');
+
+        at tasks-ui.broken.spec.ts:25:11
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tasks-ui.broken.spec.ts › Task List & Filtering › TC-UI-010 - Create a New Task ───────────────────────
+
+    Error: page.selectOption: Error: Element <select data-testid="task-status-select"> does not have an
+    option with value "inProgress", label "inProgress" or index "inProgress"
+    Call log:
+      - waiting for locator('[data-testid="task-status-select"]') to be attached
+
+       37 |     await page.fill('[data-testid="task-description-input"]', 'Use Playwright to automate all regression scenarios');
+    >  38 |     await page.selectOption('[data-testid="task-status-select"]', 'inProgress');
+          |           ^
+       39 |     await page.selectOption('[data-testid="task-priority-select"]', 'high');
+
+        at tasks-ui.broken.spec.ts:38:11
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) tasks-ui.broken.spec.ts › Task List & Filtering › TC-UI-013 - Delete a Task ────────────────────────────
+
+    Error: expect(received).toBe(expected)
+
+    Expected: 4
+    Received: 5
+
+       51 |     await page.locator('[data-testid="delete-task-button"]').first().click();
+       52 |     const newCount = await page.locator('[data-testid="task-card"]').count();
+    >  53 |     expect(newCount).toBe(initialCount - 1);
+          |                      ^
+       54 |   });
+
+        at tasks-ui.broken.spec.ts:53:20
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) tasks-api.broken.spec.ts › Tasks API › TC-API-005 - GET /api/tasks Authenticated ───────────────────────
+
+    TypeError: Cannot read properties of undefined (reading 'length')
+
+       21 |     const body = await response.json();
+    >  22 |     expect(body.data.tasks.length).toBeGreaterThanOrEqual(5);
+          |                         ^
+       23 |   });
+
+        at tasks-api.broken.spec.ts:22:25
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) tasks-api.broken.spec.ts › Tasks API › TC-API-009 - POST /api/tasks Create Task ────────────────────────
+
+    Error: expect(received).toBe(expected)
+
+    Expected: 200
+    Received: 400
+    Response body: {"error":"title is required"}
+
+       38 |     });
+    >  39 |     expect(response.status()).toBe(200);
+          |                               ^
+       40 |     const body = await response.json();
+
+        at tasks-api.broken.spec.ts:39:29
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) tasks-api.broken.spec.ts › Tasks API › TC-API-013 - PUT /api/tasks/t3 Update Task ─────────────────────
+
+    Error: expect(received).toBe(expected)
+
+    Expected: 200
+    Received: 405
+    Response body: {"error":"Method not allowed"}
+
+       63 |     });
+    >  64 |     expect(response.status()).toBe(200);
+          |                               ^
+       65 |     const body = await response.json();
+
+        at tasks-api.broken.spec.ts:64:29
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Finished in 91.3s (91.3s)
+10 failed, 1 passed
