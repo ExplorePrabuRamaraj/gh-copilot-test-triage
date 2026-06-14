@@ -1,0 +1,16 @@
+{
+  "name": "ghcopilot-usecase2-3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GitHub Copilot Kata — Use Cases 2 & 3: Test Failure Analysis and Test Gap Analysis",
+  "scripts": {
+    "test": "playwright test",
+    "test:uc2": "playwright test use-case-2/tests/",
+    "test:headed": "playwright test use-case-2/tests/ --headed",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20"
+  }
+}
